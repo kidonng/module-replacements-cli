@@ -1,17 +1,9 @@
 #!/usr/bin/env node
 import { join } from 'node:path'
 import { argv, cwd } from 'node:process'
-import {
-  microUtilsReplacements,
-  nativeReplacements,
-  preferredReplacements,
-} from 'module-replacements'
+import { all } from 'module-replacements'
 
-const replacements = [
-  microUtilsReplacements.moduleReplacements,
-  nativeReplacements.moduleReplacements,
-  preferredReplacements.moduleReplacements,
-].flat()
+const replacements = all.moduleReplacements
 
 const target = join(argv[2] || cwd(), 'package.json')
 const { default: content } = await import(target, { with: { type: 'json' } })
